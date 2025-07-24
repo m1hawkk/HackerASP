@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Bạn đã mất 10tr";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+        }
+
+        #yesButton {
+            background-color: #28a745;
+            color: white;
+            transition: transform 0.3s ease; /* Đổi transition cho mượt hơn */
+        }
+
+            #yesButton:hover {
+                transform: scale(1.05);
+            }
+
+        #noButton {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+            /* THÊM DÒNG NÀY: Giúp nút di chuyển nhanh hơn */
+            transition: top 0.1s ease-out, left 0.1s ease-out;
+        }
+
+        #thanksMessage {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #errorMessage {
+            font-size: 22px;
+            color: #d93025;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>😢 Bạn đã mất 10tr 😢</h2>
+
+    <div>
+        <button class="btn" id="yesButton" onclick="traTien()">💸 Trả</button>
+        <button class="btn" id="noButton" onmouseenter="diChuyen()">❌ Không</button>
+    </div>
+
+    <p id="errorMessage" class="hidden">Không trốn được đâu! 😉</p>
+    <p id="thanksMessage" class="hidden">🙏 Cảm ơn bạn đã trả ❤️</p>
+
+    <script>
+        let scale = 1;
+
+        function traTien() {
+            document.getElementById("thanksMessage").classList.remove("hidden");
+            document.getElementById("yesButton").classList.add("hidden");
+            document.getElementById("noButton").classList.add("hidden");
+            document.getElementById("errorMessage").classList.add("hidden");
+        }
+
+        function diChuyen() {
+            const noBtn = document.getElementById("noButton");
+            const yesBtn = document.getElementById("yesButton");
+            const errorMessage = document.getElementById("errorMessage");
+
+            errorMessage.classList.remove("hidden");
+
+            scale += 0.1;
+            yesBtn.style.transform = `scale(${scale})`;
+
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        }
+    </script>
+</body>
+</html>
